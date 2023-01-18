@@ -5,4 +5,5 @@ export declare function logger(options: {
     timeFormat: any;
     dateFormat: any;
     onlyFileLogging: any;
+    slackWebhookUrl: any;
 }, logLevel: string, errorMessage: any, serviceName: string, methodName: string, errorObj: any, callback: (arg0: any) => void): Promise<void>;

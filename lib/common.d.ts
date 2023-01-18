@@ -10,6 +10,7 @@ export declare function ValidateOptions(options: {
     timeFormat: any;
     logLevel: string;
     onlyFileLogging: undefined;
+    slackWebhookUrl: undefined;
 }): any;
 export declare function SetOptions(options: {
     folderPath: any;
@@ -23,6 +24,7 @@ export declare function SetOptions(options: {
     timeFormat: any;
     logLevel: string;
     onlyFileLogging: undefined;
+    slackWebhookUrl: undefined;
 }): any;
 export declare function GetCurrentDateFileName(): any;
 export declare function GetLogFileName(): any;

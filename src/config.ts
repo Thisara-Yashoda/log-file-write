@@ -9,5 +9,6 @@ export const defaultOptions = {
     dateFormat: 'YYYY-M-DD',
     timeFormat: 'HH:mm:ss.SSS',
     logLevel: 'debug',
-    onlyFileLogging: false
+    onlyFileLogging: false,
+    slackWebhookUrl:false
 }

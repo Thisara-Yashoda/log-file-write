@@ -10,4 +10,5 @@ export declare const defaultOptions: {
     timeFormat: string;
     logLevel: string;
     onlyFileLogging: boolean;
+    slackWebhookUrl: boolean;
 };

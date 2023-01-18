@@ -1,7 +1,8 @@
 const fs = require("fs");
-const {GetCurrentDateFileName , GetLogFileName} = require("./common");
+const { GetCurrentDateFileName, GetLogFileName } = require("./common");
 const moment = require("moment-timezone");
 const stringify = require("node-stringify");
+const axios = require('axios')
 let currentTime: any = "";
 
 export async function logger(
@@ -12,6 +13,7 @@ export async function logger(
     timeFormat: any;
     dateFormat: any;
     onlyFileLogging: any;
+    slackWebhookUrl: any;
   },
   logLevel: string,
   errorMessage: any,
@@ -62,8 +64,7 @@ export async function logger(
       errorLine =
         currentTime +
         " | " +
-        logLevel
-         +
+        logLevel +
         " | " +
         stringify(errorMessage) +
         " | " +
@@ -75,8 +76,7 @@ export async function logger(
       errorLine =
         currentTime +
         " | " +
-        logLevel
-        +
+        logLevel +
         " | " +
         stringify(errorMessage) +
         " | " +
@@ -87,7 +87,37 @@ export async function logger(
     }
 
     // Log to console if needed
-    if (!options.onlyFileLogging) //console.log(errorLine);
+    if (options.onlyFileLogging) {
+      console.log(errorLine);
+    }
+    // slack logs if needed
+    if (options.slackWebhookUrl) {
+     // console.log( "webShocked",options.slackWebhookUrl);
+      axios
+        .post(
+          options.slackWebhookUrl,
+          {
+            "blocks": [
+              {
+                "type": "section",
+                "text": {
+                  "type": "plain_text",
+                  "text": errorLine,
+                  "emoji": true
+                }
+              }
+            ]
+          }
+        )
+        .then(() => {
+          //res.send('Form submitted!')
+          //console.log(" submitted!");
+        })
+        .catch((err:any) => {
+          //res.send('Form submission failed!')
+          console.log("failed ",err);
+        });
+    }
 
     fs.appendFile(fileName, errorLine, (err: string) => {
       if (err) {
@@ -96,4 +126,4 @@ export async function logger(
       if (callback) callback(err);
     });
   } catch (ex) {}
-};
+}

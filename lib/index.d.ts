@@ -10,6 +10,7 @@ interface optionObject {
     timeFormat: any;
     logLevel: string;
     onlyFileLogging: undefined;
+    slackWebhookUrl: undefined;
 }
 export declare function SetUserOptions(option: optionObject): void;
 export declare function Debug(errorMessage: any, serviceName: any, methodName: any, errorObj: any, cb: any): void;

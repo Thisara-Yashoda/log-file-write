@@ -16,6 +16,7 @@ export function ValidateOptions(options: {
   timeFormat: any;
   logLevel: string;
   onlyFileLogging: undefined;
+  slackWebhookUrl: undefined;
 }): any {
   let warningPrefix = "Node File Logger Warning: ";
 
@@ -75,10 +76,15 @@ export function ValidateOptions(options: {
   }
 
   // Validate onlyFileLogging
-  if (options.onlyFileLogging !== undefined)
+  if (options.onlyFileLogging !== undefined){
     defaultOptions.onlyFileLogging = options.onlyFileLogging;
-
-  return defaultOptions;
+  }
+  
+  // Validate slackUrl
+  if (options.slackWebhookUrl  !== undefined) { 
+    defaultOptions.slackWebhookUrl = options.slackWebhookUrl;
+  }
+   return defaultOptions;
 }
 
 export function SetOptions(options: {
@@ -93,6 +99,7 @@ export function SetOptions(options: {
   timeFormat: any;
   logLevel: string;
   onlyFileLogging: undefined;
+  slackWebhookUrl: undefined;
 }) : any{
   return options ? options : defaultOptions;
 }

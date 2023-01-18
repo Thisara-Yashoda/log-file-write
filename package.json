@@ -1,6 +1,6 @@
 {
   "name": "log-file-write",
-  "version": "1.0.1",
+  "version": "2.0.1",
   "description": "",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -20,6 +20,7 @@
   "homepage": "https://github.com/Thisara-Yashoda/log-file-write#readme",
   "dependencies": {
     "@types/stringify-object": "^4.0.2",
+    "axios": "^1.2.3",
     "moment": "^2.29.4",
     "moment-timezone": "^0.5.40",
     "node-stringify": "^0.2.1",

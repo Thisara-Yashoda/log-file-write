@@ -3,9 +3,12 @@
 
 Loggers are used by applications and runtime components to capture message and trace events. Log handlers write log record objects to output devices like log files
 
+## this plug use only work for node backend!!!!!
+
 
 ## Features 
 
+- [x] (new)Slack webhook support
 - [x] change timezone
 - [x] customize logfile name
 - [x] control console log
@@ -16,7 +19,7 @@ Loggers are used by applications and runtime components to capture message and t
 Install via NPM:
 
 ```
-npm install link log-file-write
+npm install log-file-write
 ```
 
 
@@ -34,8 +37,9 @@ SetUserOptions({
     fileNameExtension: '.log',         
     dateFormat: 'YYYY-M-DD',
     timeFormat: 'HH:mm:ss.SSS',
-    logLevel: 'debtu',
-    onlyFileLogging: false
+    logLevel: 'deb',
+    onlyFileLogging: false, // if you want to print content to console
+    slackWebhookUrl : '',  //https://hooks.slack.com/services/T04K
 });
 
 // // Log a simple error message
@@ -66,4 +70,8 @@ Info('Something has failed!', null, null, null, function() {
 
 
 ```
+
+## All Time Zone
+### 📎
+[Time zone](https://gist.github.com/diogocapela/12c6617fc87607d11fd62d2a4f42b02a)
 

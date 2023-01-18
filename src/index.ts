@@ -18,6 +18,7 @@ interface optionObject {
   timeFormat: any;
   logLevel: string;
   onlyFileLogging: undefined;
+  slackWebhookUrl: undefined;
 }
 //assine object
 let options : optionObject = {
@@ -31,7 +32,8 @@ let options : optionObject = {
   dateFormat: undefined,
   timeFormat: undefined,
   logLevel: "",
-  onlyFileLogging: undefined
+  onlyFileLogging: undefined,
+  slackWebhookUrl : undefined
 }
 
 export function SetUserOptions(option: optionObject) {
