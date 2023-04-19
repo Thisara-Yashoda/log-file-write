@@ -81,7 +81,7 @@ export function Warn(
   logger(options, "Warn", errorMessage, serviceName, methodName, errorObj, cb);
 }
 
-export function Error(
+export function Errors(
   errorMessage: any,
   serviceName: any,
   methodName: any,
