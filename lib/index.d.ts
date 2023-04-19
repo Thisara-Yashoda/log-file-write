@@ -17,7 +17,7 @@ export declare function Debug(errorMessage: any, serviceName: any, methodName: a
 export declare function Trace(errorMessage: any, serviceName: any, methodName: any, errorObj: any, cb: any): void;
 export declare function Info(errorMessage: any, serviceName: any, methodName: any, errorObj: any, cb: any): void;
 export declare function Warn(errorMessage: any, serviceName: any, methodName: any, errorObj: any, cb: any): void;
-export declare function Error(errorMessage: any, serviceName: any, methodName: any, errorObj: any, cb: any): void;
+export declare function Errors(errorMessage: any, serviceName: any, methodName: any, errorObj: any, cb: any): void;
 export declare function Fatal(errorMessage: any, serviceName: any, methodName: any, errorObj: any, cb: any): void;
 export declare function Log(logLevel: any, errorMessage: any, serviceName: any, methodName: any, errorObj: any, cb: any): void;
 export {};
