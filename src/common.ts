@@ -1,132 +1,61 @@
 //let defaultOptions = require("./config");
-import { defaultOptions } from "./config";
+import { TDefaultOptions, defaultOptions } from "./type";
 const moment = require("moment-timezone");
 const fs = require("fs");
 const path = require("path");
 
-export function ValidateOptions(options: {
-  folderPath: any;
-  timeZone: any;
-  dateBasedFileNaming: undefined;
-  fileName: string;
-  fileNamePrefix: string;
-  fileNameSuffix: string;
-  fileNameExtension: string;
-  dateFormat: any;
-  timeFormat: any;
-  logLevel: string;
-  onlyFileLogging: undefined;
-  slackWebhookUrl: undefined;
-}): any {
-  let warningPrefix = "Node File Logger Warning: ";
 
-  // Validate folder name
+
+/**
+ * Validates the options object for the logger.
+ * @param options - The options object to validate.
+ * @returns The validated options object.
+ */
+export function ValidateOptions(options: TDefaultOptions): TDefaultOptions {
+  const mergedOptions: TDefaultOptions = { ...defaultOptions, ...options };
+
   try {
-    if (options.folderPath) {
-      if (!fs.existsSync(options.folderPath)) fs.mkdirSync(options.folderPath);
-      
-      defaultOptions.folderPath = options.folderPath;
+    if (mergedOptions.folderPath && !fs.existsSync(mergedOptions.folderPath)) {
+      fs.mkdirSync(mergedOptions.folderPath);
     }
   } catch (ex) {
-    console.log(
-      warningPrefix +
-        "Error occured while creating log folder. Set to default: " +
-        defaultOptions.folderPath
-    );
+    console.log(`Node File Logger Warning: Error occurred while creating log folder. Set to default: ${defaultOptions.folderPath}`);
   }
 
-  // Validate time zone
-  if (options.timeZone) {
-    if (moment.tz.zone(options.timeZone)) {
-      defaultOptions.timeZone = options.timeZone;
-    } else {
-      console.log(
-        warningPrefix +
-          "Invalid timezone. Set to default: " +
-          defaultOptions.timeZone
-      );
-    }
+  if (mergedOptions.timeZone && !moment.tz.zone(mergedOptions.timeZone)) {
+    console.log(`Node File Logger Warning: Invalid timezone. Set to default: ${defaultOptions.timeZone}`);
+    mergedOptions.timeZone = defaultOptions.timeZone;
   }
 
-  
-
-  // Validate file name extension
-  if (options.fileNameExtension)
-    defaultOptions.fileNameExtension = options.fileNameExtension.trim();
-
-  // Validate dateFormat and timeFormat
-  if (options.dateFormat) defaultOptions.dateFormat = options.dateFormat;
-  if (options.timeFormat) defaultOptions.timeFormat = options.timeFormat;
-
-  // Validate log levels
-  if (options.logLevel) {
-    if (
-      options.logLevel.toLowerCase() !== "debug" &&
-      options.logLevel.toLowerCase() !== "prod" &&
-      options.logLevel.toLowerCase() !== "prod-trace"
-    ) {
-      console.log(
-        warningPrefix +
-          "Invalid log level. Will be set to default: " +
-          defaultOptions.logLevel
-      );
-    } else {
-      defaultOptions.logLevel = options.logLevel;
-    }
+  if (mergedOptions.logLevel &&
+    !["debug", "prod", "prod-trace"].includes(mergedOptions.logLevel.toLowerCase())) {
+    console.log(`Node File Logger Warning: Invalid log level. Will be set to default: ${defaultOptions.logLevel}`);
+    mergedOptions.logLevel = defaultOptions.logLevel;
   }
 
-  // Validate onlyFileLogging
-  if (options.onlyFileLogging !== undefined){
-    defaultOptions.onlyFileLogging = options.onlyFileLogging;
-  }
-  
-  // Validate slackUrl
-  if (options.slackWebhookUrl  !== undefined) { 
-    defaultOptions.slackWebhookUrl = options.slackWebhookUrl;
-  }
-   return defaultOptions;
+  return mergedOptions;
 }
 
-export function SetOptions(options: {
-  folderPath: any;
-  timeZone: any;
-  dateBasedFileNaming: undefined;
-  fileName: string;
-  fileNamePrefix: string;
-  fileNameSuffix: string;
-  fileNameExtension: string;
-  dateFormat: any;
-  timeFormat: any;
-  logLevel: string;
-  onlyFileLogging: undefined;
-  slackWebhookUrl: undefined;
-}) : any{
-  return options ? options : defaultOptions;
+// Set options
+export function SetOptions(options: TDefaultOptions): TDefaultOptions {
+  return options ? ValidateOptions(options) : { ...defaultOptions };
 }
 
-export function GetCurrentDateFileName() {
-  let folderPath = defaultOptions.folderPath;
-
-  let fileName =
-    defaultOptions.fileNamePrefix +
-    moment.tz(defaultOptions.timeZone).format(defaultOptions.dateFormat) +
-    defaultOptions.fileNameSuffix + 
-    defaultOptions.fileNameExtension;
-    
-
-  let fileLocation = path.join(folderPath, fileName);
+// Get current date file name
+export function GetCurrentDateFileName(): string {
+  const { folderPath, fileNamePrefix, fileNameSuffix, fileNameExtension, dateFormat, timeZone } = defaultOptions;
+  const fileName = `${fileNamePrefix}${moment.tz(timeZone).format(dateFormat)}${fileNameSuffix}${fileNameExtension}`;
+  const fileLocation = path.join(folderPath, fileName);
 
   if (!fs.existsSync(folderPath)) {
     fs.mkdirSync(folderPath);
   }
+
   return fileLocation;
 }
 
-export function GetLogFileName() {
-  let filePath = path.join(
-    defaultOptions.folderPath,
-    defaultOptions.fileName + defaultOptions.fileNameExtension
-  );
-
-  return filePath;
+// Get log file name
+export function GetLogFileName(): string {
+  const { folderPath, fileName, fileNameExtension } = defaultOptions;
+  return path.join(folderPath, `${fileName}${fileNameExtension}`);
 }

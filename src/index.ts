@@ -1,42 +1,11 @@
 // Import libraries
-//const fs = require('fs');t
-// const moment = require('moment-timezone');
 import { logger } from "./logger";
-//import { options } from "./config";
-//const options = require("./config");
-import { SetOptions, ValidateOptions }  from "./common";
+import { SetOptions, ValidateOptions } from "./common";
+import { TDefaultOptions, TErrorType, TLogLevel, defaultOptions } from "./type"
 
-interface optionObject {
-  folderPath: any;
-  timeZone: any;
-  dateBasedFileNaming: undefined;
-  fileName: string;
-  fileNamePrefix: string;
-  fileNameSuffix: string;
-  fileNameExtension: string;
-  dateFormat: any;
-  timeFormat: any;
-  logLevel: string;
-  onlyFileLogging: undefined;
-  slackWebhookUrl: undefined;
-}
-//assine object
-let options : optionObject = {
-  folderPath: undefined,
-  timeZone: undefined,
-  dateBasedFileNaming: undefined,
-  fileName: "",
-  fileNamePrefix: "",
-  fileNameSuffix: "",
-  fileNameExtension: "",
-  dateFormat: undefined,
-  timeFormat: undefined,
-  logLevel: "",
-  onlyFileLogging: undefined,
-  slackWebhookUrl : undefined
-}
+let options = defaultOptions;
 
-export function SetUserOptions(option: optionObject) {
+export function SetUserOptions(option: TDefaultOptions) {
   options = ValidateOptions(option);
   SetOptions(options);
 }
@@ -46,9 +15,10 @@ export function Debug(
   serviceName: any,
   methodName: any,
   errorObj: any,
+  errorType: TErrorType,
   cb: any
 ) {
-  logger(options, "Debug", errorMessage, serviceName, methodName, errorObj, cb);
+  logger(options, "Debug", errorMessage, serviceName, methodName, errorObj, errorType, cb);
 }
 
 export function Trace(
@@ -56,9 +26,11 @@ export function Trace(
   serviceName: any,
   methodName: any,
   errorObj: any,
+  errorType: TErrorType,
   cb: any
 ) {
-  logger(options, "Trace", errorMessage, serviceName, methodName, errorObj, cb);
+  logger(options, "Trace", errorMessage, serviceName, methodName, errorObj, errorType, cb);
+
 }
 
 export function Info(
@@ -66,9 +38,10 @@ export function Info(
   serviceName: any,
   methodName: any,
   errorObj: any,
+  errorType: TErrorType,
   cb: any
 ) {
-  logger(options, "Info", errorMessage, serviceName, methodName, errorObj, cb);
+  logger(options, "Info", errorMessage, serviceName, methodName, errorObj, errorType, cb);
 }
 
 export function Warn(
@@ -76,9 +49,10 @@ export function Warn(
   serviceName: any,
   methodName: any,
   errorObj: any,
+  errorType: TErrorType,
   cb: any
 ) {
-  logger(options, "Warn", errorMessage, serviceName, methodName, errorObj, cb);
+  logger(options, "Warn", errorMessage, serviceName, methodName, errorObj, errorType, cb);
 }
 
 export function Errors(
@@ -86,9 +60,10 @@ export function Errors(
   serviceName: any,
   methodName: any,
   errorObj: any,
+  errorType: TErrorType,
   cb: any
 ) {
-  logger(options, "Error", errorMessage, serviceName, methodName, errorObj, cb);
+  logger(options, "Error", errorMessage, serviceName, methodName, errorObj, errorType, cb);
 }
 
 export function Fatal(
@@ -96,9 +71,10 @@ export function Fatal(
   serviceName: any,
   methodName: any,
   errorObj: any,
+  errorType: TErrorType,
   cb: any
 ) {
-  logger(options, "Fatal", errorMessage, serviceName, methodName, errorObj, cb);
+  logger(options, "Fatal", errorMessage, serviceName, methodName, errorObj, errorType, cb);
 }
 
 export function Log(
@@ -107,15 +83,33 @@ export function Log(
   serviceName: any,
   methodName: any,
   errorObj: any,
+  errorType: TErrorType,
   cb: any
 ) {
-  logger(
-    options,
-    logLevel,
-    errorMessage,
-    serviceName,
-    methodName,
-    errorObj,
-    cb
-  );
+  logger(options, logLevel, errorMessage, serviceName, methodName, errorObj, errorType, cb);
 }
+
+export function Success(
+  errorMessage: any,
+  serviceName: any,
+  methodName: any,
+  errorObj: any,
+  errorType: TErrorType,
+  cb: any
+) {
+  logger(options, "Success", errorMessage, serviceName, methodName, errorObj, errorType, cb);
+}
+
+
+export function Other(
+  errorMessage: any,
+  serviceName: any,
+  methodName: any,
+  errorObj: any,
+  errorType: TErrorType,
+  cb: any
+) {
+  logger(options, "Other", errorMessage, serviceName, methodName, errorObj, errorType, cb);
+}
+
+

@@ -1,30 +1,10 @@
-export declare function ValidateOptions(options: {
-    folderPath: any;
-    timeZone: any;
-    dateBasedFileNaming: undefined;
-    fileName: string;
-    fileNamePrefix: string;
-    fileNameSuffix: string;
-    fileNameExtension: string;
-    dateFormat: any;
-    timeFormat: any;
-    logLevel: string;
-    onlyFileLogging: undefined;
-    slackWebhookUrl: undefined;
-}): any;
-export declare function SetOptions(options: {
-    folderPath: any;
-    timeZone: any;
-    dateBasedFileNaming: undefined;
-    fileName: string;
-    fileNamePrefix: string;
-    fileNameSuffix: string;
-    fileNameExtension: string;
-    dateFormat: any;
-    timeFormat: any;
-    logLevel: string;
-    onlyFileLogging: undefined;
-    slackWebhookUrl: undefined;
-}): any;
-export declare function GetCurrentDateFileName(): any;
-export declare function GetLogFileName(): any;
+import { TDefaultOptions } from "./type";
+/**
+ * Validates the options object for the logger.
+ * @param options - The options object to validate.
+ * @returns The validated options object.
+ */
+export declare function ValidateOptions(options: TDefaultOptions): TDefaultOptions;
+export declare function SetOptions(options: TDefaultOptions): TDefaultOptions;
+export declare function GetCurrentDateFileName(): string;
+export declare function GetLogFileName(): string;
