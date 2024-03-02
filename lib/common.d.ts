@@ -8,3 +8,5 @@ export declare function ValidateOptions(options: TDefaultOptions): TDefaultOptio
 export declare function SetOptions(options: TDefaultOptions): TDefaultOptions;
 export declare function GetCurrentDateFileName(): string;
 export declare function GetLogFileName(): string;
+export declare function SetDeleteTimeDate(deleteTimeDate: number): void;
+export declare function GetDeleteTimeDate(): number | undefined;
