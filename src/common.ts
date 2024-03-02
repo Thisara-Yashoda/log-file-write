@@ -59,3 +59,16 @@ export function GetLogFileName(): string {
   const { folderPath, fileName, fileNameExtension } = defaultOptions;
   return path.join(folderPath, `${fileName}${fileNameExtension}`);
 }
+
+//set delete time date
+export function SetDeleteTimeDate(deleteTimeDate: number) {
+  defaultOptions.logsDeletePeriodInDays = deleteTimeDate;
+}
+
+//get delete time date
+export function GetDeleteTimeDate() {
+  return defaultOptions.logsDeletePeriodInDays;
+}
+
+
+

@@ -10,7 +10,8 @@ export type TDefaultOptions = {
     timeFormat: string;
     logLevel: string;
     onlyFileLogging: boolean;
-    slackWebhookUrl: string;
+    slackWebhookUrl?: string;
+    logsDeletePeriodInDays?: number;
 };
 
 export const defaultOptions: TDefaultOptions = {
@@ -25,7 +26,8 @@ export const defaultOptions: TDefaultOptions = {
     timeFormat: 'HH:mm:ss.SSS',
     logLevel: 'debug',
     onlyFileLogging: false,
-    slackWebhookUrl: ''
+    slackWebhookUrl: '',
+    logsDeletePeriodInDays: 60
 };
 
 //error type
