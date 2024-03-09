@@ -44,7 +44,7 @@ SetUserOptions({
   timeFormat: "HH:mm:ss.SSS",
   logLevel: "deb",
   onlyFileLogging: false, // if you want to print content to console
-  slackWebhookUrl: "", //https://hooks.slack.com/services/T04K
+  slackWebhookUrl: "", //https://api.slack.com/messaging/webhooks
   logsDeletePeriodInDays: 60, // delete log files after 60 days default is 60
 });
 
@@ -81,3 +81,5 @@ Info("Something has failed!", null, null, null, function () {
 ### 📎
 
 [Time zone](https://gist.github.com/diogocapela/12c6617fc87607d11fd62d2a4f42b02a)
+
+
